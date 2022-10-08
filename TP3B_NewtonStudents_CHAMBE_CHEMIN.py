@@ -175,7 +175,7 @@ xi = np.append(xi,x)
 yi = np.append(yi,y)
 delta = diffdiv(xi,yi)    #    TO BE COMPLETED...
 NPoly = np.ones(np.size(t))
-py =   NewtonInterpol(xi,yi,a,b,nbt)    #    TO BE COMPLETED...
+py = delta[degree]*NPoly    #    TO BE COMPLETED...
 plt.plot(t, py, lw=1, label="degree = "+str(degree))
 
 degreeMax = 6
@@ -185,9 +185,12 @@ for degree in range(1, degreeMax+1) :
     # update of the DD
     xi,yi,delta = updateDD(xi, yi, delta, x, y)
     # evaluation of the interpolation polynomial
-    py =   NewtonInterpol(xi,yi,a,b,nbt)
+    NPoly = NPoly * (t - xi[degree-1]) 
+    py = py + delta[degree]*NPoly
     plt.plot(t, py, lw=1, label="degree = "+str(degree))   
 plt.legend(loc='best')
+
+
 
 
 """------------------------------------------------------
@@ -195,10 +198,22 @@ PART 2B)
     COMPARISON OF THESE DIFFERENT APPROACHES
 ------------------------------------------------------"""
 """
------
------
-TO BE COMPLETED...
------
------
+
+Dans le cas uniforme, la complexite de NewtonInterpol est de O(n^2).
+Cela vient du fait que NewtonInterpol appelle diffdiv(xi,yi) qui est en O(n^2)
+plus une boucle for en O(n).
+
+Dans le cas dynamique maintenant:
+On a une complexite seulement de O(n) car on appelle la fonction updateDD qui 
+est en O(n) puis une boucle for qui est egalement un O(n).
+
+On peut donc voir que l'interpolation dynamique est préférable puisqu'on met uniquement 
+a jour le delta sans recalculer la totalité, c'est donc évidemment bien moins couteux .
+
+
+L'algorithme de Horner est meilleur car sa complexité est de O(n)
+contre une complexité de la deuxième méthode de O(2n)
+
+
 """
 

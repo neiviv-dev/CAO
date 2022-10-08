@@ -107,7 +107,8 @@ plt.plot(tx, ty,'b',lw=1,label='uniform parameterization')
 # 2) Chebyshev parametrization tch :
 #
 i = np.linspace(a, degree+1, degree + 1)
-tch = (a+b)/2 + (b-a)/2  * np.cos((2*i+1)*(np.pi/(2*(degree+1)+2)))
+tch = (a+b)/2 + (b-a)/2  * np.cos((2*i+1)*(np.pi/(2*(degree)+2)))
+""" On avait un écart avec votre courbe car nous utilisions degree+1 au lieu de degree"""
 #
 # Chebyshev parametric interpolation :
 #
